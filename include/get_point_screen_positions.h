@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2int.h                                       :+:      :+:    :+:   */
+/*   get_point_screen_positions.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/05 14:36:25 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/06 17:16:45 by clbrunet         ###   ########.fr       */
+/*   Created: 2021/10/08 16:11:16 by clbrunet          #+#    #+#             */
+/*   Updated: 2021/10/08 16:11:16 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR2INT_H
-# define VECTOR2INT_H
+#ifndef GET_POINT_SCREEN_POSITIONS_H
+# define GET_POINT_SCREEN_POSITIONS_H
 
-# include <math.h>
+# include "main.h"
 
-typedef struct s_vector2int
-{
-	int	x;
-	int	y;
-}	t_vector2int;
-
-t_vector2int	get_vector2int(int x, int y);
-float			get_vector2int_magnitude(t_vector2int vector2int);
-t_vector2int	get_vector2int_normalize(t_vector2int vector2int);
+t_vector2int	**get_point_screen_positions(t_globals *globals);
 
 #endif

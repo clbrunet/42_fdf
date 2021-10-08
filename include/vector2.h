@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef vector2_H
-# define vector2_H
+#ifndef VECTOR2_H
+# define VECTOR2_H
 
 # include <math.h>
 
@@ -21,9 +21,8 @@ typedef struct s_vector2
 	float	y;
 }	t_vector2;
 
-
 t_vector2	get_vector2(float x, float y);
-float			get_vector2_magnitude(t_vector2 vector2);
+float		get_vector2_magnitude(t_vector2 vector2);
 t_vector2	get_vector2_normalize(t_vector2 vector2);
 
 #endif

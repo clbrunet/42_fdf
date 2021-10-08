@@ -26,8 +26,6 @@
 # define WIDTH 1080
 # define HEIGHT 720
 
-# define POINT_INTERVAL 16
-
 # define RESET		"\x1B[0m"
 # define BOLD		"\x1B[1m"
 # define BLACK		"\x1B[30m"
@@ -71,21 +69,16 @@ typedef union u_color
 
 typedef struct s_map
 {
-	t_vector3		**points;
+	int				**point_heights;
 	t_vector2int	dimension;
 }	t_map;
 
-typedef struct s_camera
-{
-	t_vector3	position;
-	t_vector3	direction;
-}	t_camera;
-
 typedef struct s_globals
 {
-	t_mlx		mlx;
-	t_map		map;
-	t_camera	camera;
+	t_mlx			mlx;
+	t_map			map;
+	t_vector2int	tile_dimension;
+	t_vector2int	origin_screen_position;
 }	t_globals;
 
 #endif
