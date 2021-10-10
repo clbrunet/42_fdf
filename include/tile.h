@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write.h                                            :+:      :+:    :+:   */
+/*   tile.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 11:24:17 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/04 11:24:17 by clbrunet         ###   ########.fr       */
+/*   Created: 2021/10/10 09:22:37 by clbrunet          #+#    #+#             */
+/*   Updated: 2021/10/10 09:22:37 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRITE_H
-# define WRITE_H
+#ifndef TILE_H
+# define TILE_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "mlx.h"
+# include "main.h"
 
-size_t	ft_strlen(char const *s);
-int		write_str(int const fd, char const *str);
+void	set_tile_dimension(t_globals *globals);
+void	set_origin_screen_position(t_globals *globals);
 
 #endif

@@ -13,115 +13,22 @@
 #include "main.h"
 #include "initialize_mlx.h"
 #include "mlx.h"
+#include "map.h"
+#include "tile.h"
 
-void	set_map_point_heights(t_map *map)
+// to remove
+void print_vector2int(char const *name, t_vector2int v2i)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < map->dimension.y)
+	if (name)
 	{
-		j = 0;
-		while (j < map->dimension.x)
-		{
-			map->point_heights[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-}
-
-int	allocate_map_rows(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->dimension.y)
-	{
-		map->point_heights[i] = malloc(map->dimension.x * sizeof(int));
-		if (map->point_heights[i] == NULL)
-		{
-			break ;
-		}
-		i++;
-	}
-	if (i < map->dimension.y)
-	{
-		while (i >= 0)
-		{
-			free(map->point_heights[i]);
-			i--;
-		}
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
-int	set_map(t_map *map)
-{
-	map->dimension.y = 3;
-	map->dimension.x = 3;
-	map->point_heights = malloc(map->dimension.y * sizeof(int *));
-	if (map->point_heights == NULL)
-	{
-		return (EXIT_FAILURE);
-	}
-	if (allocate_map_rows(map) == EXIT_FAILURE)
-	{
-		free(map->point_heights);
-		return (EXIT_FAILURE);
-	}
-	set_map_point_heights(map);
-	map->point_heights[1][1] = 1;
-	return (EXIT_SUCCESS);
-}
-
-void	set_tile_dimension(t_globals *globals)
-{
-	int		size_x;
-	float	size_y;
-	int		quotient_x;
-	int		quotient_y;
-
-	size_x = globals->map.dimension.y + globals->map.dimension.x - 2;
-	size_y = (float)size_x / 2;
-	quotient_x = (WIDTH - (int)(WIDTH / 5)) / size_x;
-	quotient_y = (HEIGHT - (int)(HEIGHT / 5)) / size_y;
-	if (quotient_x < quotient_y)
-	{
-		globals->tile_dimension.x = quotient_x * 2;
-		globals->tile_dimension.y = quotient_x;
+		printf("%s :\n", name);
 	}
 	else
 	{
-		globals->tile_dimension.x = quotient_y * 2;
-		globals->tile_dimension.y = quotient_y;
+		printf("vector2int :\n");
 	}
-}
-
-void	set_origin_screen_position(t_globals *globals)
-{
-	float	size_y;
-
-	size_y = (float)(globals->map.dimension.y + globals->map.dimension.x - 2)
-		/ 2;
-	globals->origin_screen_position.x = (int)(WIDTH / 2);
-	globals->origin_screen_position.y = (int)(HEIGHT / 2)
-		- (size_y * globals->tile_dimension.y) / 2;
-}
-
-void	free_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->dimension.y)
-	{
-		free(map->point_heights[i]);
-		i++;
-	}
-	free(map->point_heights);
+	printf("\tx : %d\n", v2i.x);
+	printf("\ty : %d\n", v2i.y);
 }
 
 int	main(void)

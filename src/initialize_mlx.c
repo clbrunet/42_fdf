@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "initialize_mlx.h"
+#include "hooks.h"
 
 static int	initialize_mlx_win(t_mlx *mlx)
 {

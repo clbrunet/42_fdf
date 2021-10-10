@@ -12,8 +12,8 @@
 
 #include "get_point_screen_positions.h"
 
-static int	allocate_point_screen_positions_rows(t_vector2int **point_screen_positions,
-		t_vector2int dimension)
+static int	allocate_point_screen_positions_rows(
+		t_vector2int **point_screen_positions, t_vector2int dimension)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ static void	set_point_screen_positions(t_globals *globals,
 			point_screen_positions[i][j].y += (i + j)
 				* globals->tile_dimension.y / 2;
 			point_screen_positions[i][j].y -= (globals->map.point_heights[i][j])
-				* globals->tile_dimension.y / 2;
+				* globals->tile_dimension.y / 2.5;
 			j++;
 		}
 		i++;

@@ -15,9 +15,21 @@
 
 # include "main.h"
 
-void	mlx_img_pixel_put(t_globals *globals, t_vector2int position,
+void	mlx_img_pixel_put(t_img *img, t_vector2int position,
 			unsigned int color);
-void	mlx_img_square_put(t_globals *globals, t_vector2int position,
+
+void	mlx_img_square_put(t_img *img, t_vector2int top_left_position,
 			t_vector2int dimension, unsigned int color);
+
+void	mlx_img_horizontal_line_put(t_img *img, t_vector2int from,
+			t_vector2int to, unsigned int color);
+void	mlx_img_vertical_line_put(t_img *img, t_vector2int from,
+			t_vector2int to, unsigned int color);
+void	mlx_img_rise_line_put(t_img *img, t_vector2int from,
+			t_vector2int to, unsigned int color);
+void	mlx_img_run_line_put(t_img *img, t_vector2int from, t_vector2int to,
+			unsigned int color);
+void	mlx_img_line_put(t_img *img, t_vector2int from, t_vector2int to,
+			unsigned int color);
 
 #endif
