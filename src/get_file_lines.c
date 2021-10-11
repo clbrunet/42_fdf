@@ -21,7 +21,6 @@ static int	strsadd_back(char ***strs_ptr, unsigned int len, char *new)
 	tmp = malloc(sizeof(char *) * (len + 1));
 	if (tmp == NULL)
 	{
-		free(new);
 		return (EXIT_FAILURE);
 	}
 	j = 0;

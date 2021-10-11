@@ -28,6 +28,8 @@ void	free_strs(char **s)
 {
 	char	**start;
 
+	if (s == NULL)
+		return ;
 	start = s;
 	while (*s != NULL)
 	{
