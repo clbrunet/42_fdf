@@ -11,8 +11,39 @@
 /* ************************************************************************** */
 
 #include "map.h"
+#include "get_file_lines.h"
+#include "get_next_line.h"
 
-static void	set_map_point_heights(t_map *map)
+static int	pop_number(char *line)
+{
+	char	*start;
+	long	n;
+	int		sign;
+
+	start = line;
+	sign = 1;
+	while (*line == ' ' && *line != '\0')
+		line++;
+	if (*line == '-')
+	{
+		sign = -1;
+		line++;
+	}
+	n = 0;
+	while (*line != ' ' && *line != '\0')
+	{
+		n = n * 10 + *line - '0';
+		line++;
+	}
+	if (*line == ' ')
+	{
+		line++;
+	}
+	ft_strcpy(start, line);
+	return (n * sign);
+}
+
+static void	set_map_points(t_map *map, char **lines)
 {
 	int	i;
 	int	j;
@@ -23,7 +54,8 @@ static void	set_map_point_heights(t_map *map)
 		j = 0;
 		while (j < map->dimension.x)
 		{
-			map->point_heights[i][j] = 0;
+			map->points[i][j].height = pop_number(lines[i]);
+			map->points[i][j].color.full = 0x00FFFFFF;
 			j++;
 		}
 		i++;
@@ -37,8 +69,8 @@ static int	allocate_map_rows(t_map *map)
 	i = 0;
 	while (i < map->dimension.y)
 	{
-		map->point_heights[i] = malloc(map->dimension.x * sizeof(int));
-		if (map->point_heights[i] == NULL)
+		map->points[i] = malloc(map->dimension.x * sizeof(t_point));
+		if (map->points[i] == NULL)
 		{
 			break ;
 		}
@@ -48,7 +80,7 @@ static int	allocate_map_rows(t_map *map)
 	{
 		while (i >= 0)
 		{
-			free(map->point_heights[i]);
+			free(map->points[i]);
 			i--;
 		}
 		return (EXIT_FAILURE);
@@ -56,26 +88,31 @@ static int	allocate_map_rows(t_map *map)
 	return (EXIT_SUCCESS);
 }
 
-int	set_map(t_map *map)
+int	set_map(t_globals *globals)
 {
-	map->dimension.y = 3;
-	map->dimension.x = 3;
-	map->point_heights = malloc(map->dimension.y * sizeof(int *));
-	if (map->point_heights == NULL)
+	char	**lines;
+
+	lines = get_file_lines(globals->path);
+	if (lines == NULL)
+		return (EXIT_FAILURE);
+	globals->map.dimension.y = ft_strslen((char const **)lines);
+	globals->map.dimension.x = ft_str_number_count(*lines);
+	globals->map.points = malloc(globals->map.dimension.y * sizeof(t_point *));
+	if (globals->map.points == NULL)
 	{
+		free_strs(lines);
+		write_str(2, "Malloc failed\n");
 		return (EXIT_FAILURE);
 	}
-	if (allocate_map_rows(map) == EXIT_FAILURE)
+	if (allocate_map_rows(&globals->map) == EXIT_FAILURE)
 	{
-		free(map->point_heights);
+		free_strs(lines);
+		free(globals->map.points);
+		write_str(2, "Malloc failed\n");
 		return (EXIT_FAILURE);
 	}
-	set_map_point_heights(map);
-	map->point_heights[0][0] = 5;
-	map->point_heights[1][1] = 0;
-	map->point_heights[0][2] = 5;
-	map->point_heights[2][0] = 5;
-	map->point_heights[2][2] = 5;
+	set_map_points(&globals->map, lines);
+	free_strs(lines);
 	return (EXIT_SUCCESS);
 }
 
@@ -86,8 +123,8 @@ void	free_map(t_map *map)
 	i = 0;
 	while (i < map->dimension.y)
 	{
-		free(map->point_heights[i]);
+		free(map->points[i]);
 		i++;
 	}
-	free(map->point_heights);
+	free(map->points);
 }

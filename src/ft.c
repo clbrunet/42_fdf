@@ -14,15 +14,29 @@
 
 size_t	ft_strlen(char const *s)
 {
-	size_t	length;
+	char const	*start;
 
-	length = 0;
+	start = s;
 	while (*s != '\0')
 	{
-		length++;
 		s++;
 	}
-	return (length);
+	return (s - start);
+}
+
+int	ft_strcmp(char const *s1, char const *s2)
+{
+	unsigned char const	*u_s1;
+	unsigned char const	*u_s2;
+
+	u_s1 = (unsigned char *)s1;
+	u_s2 = (unsigned char *)s2;
+	while (*u_s1 && *u_s1 == *u_s2)
+	{
+		u_s1++;
+		u_s2++;
+	}
+	return ((int)(*u_s1 - *u_s2));
 }
 
 int	write_str(int const fd, char const *str)

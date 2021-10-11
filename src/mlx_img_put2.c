@@ -12,52 +12,52 @@
 
 #include "mlx_img_put.h"
 
-void	mlx_img_horizontal_line_put(t_img *img, t_vector2int from,
-		t_vector2int to, unsigned int color)
+void	mlx_img_gradient_horizontal_line_put(t_img *img, t_screen_point from,
+			t_screen_point to)
 {
 	t_vector2int	position;
 	int				increment_x;
 
 	increment_x = 1;
-	if (to.x < from.x)
+	if (to.position.x < from.position.x)
 	{
 		increment_x = -1;
 	}
-	position.x = from.x;
-	position.y = from.y;
-	while (position.x != to.x)
+	position.x = from.position.x;
+	position.y = from.position.y;
+	while (position.x != to.position.x)
 	{
-		mlx_img_pixel_put(img, position, color);
+		mlx_img_pixel_put(img, position, 0x00FFFFFF);
 		position.x += increment_x;
 	}
-	mlx_img_pixel_put(img, to, color);
+	mlx_img_pixel_put(img, to.position, 0x00FFFFFF);
 }
 
-void	mlx_img_vertical_line_put(t_img *img, t_vector2int from,
-		t_vector2int to, unsigned int color)
+void	mlx_img_gradient_vertical_line_put(t_img *img, t_screen_point from,
+		t_screen_point to)
 {
 	t_vector2int	position;
 	int				increment_y;
 
 	increment_y = 1;
-	if (to.y < from.y)
+	if (to.position.y < from.position.y)
 	{
 		increment_y = -1;
 	}
-	position.x = from.x;
-	position.y = from.y;
-	while (position.y != to.y)
+	position.x = from.position.x;
+	position.y = from.position.y;
+	while (position.y != to.position.y)
 	{
-		mlx_img_pixel_put(img, position, color);
+		mlx_img_pixel_put(img, position, 0x00FFFFFF);
 		position.y += increment_y;
 	}
-	mlx_img_pixel_put(img, to, color);
+	mlx_img_pixel_put(img, to.position, 0x00FFFFFF);
 }
 
 static void	mlx_img_line_put_set_increment(t_vector2int *increment,
-		t_vector2int from, t_vector2int to)
+		t_vector2int from_position, t_vector2int to_position)
 {
-	if (to.x < from.x)
+	if (to_position.x < from_position.x)
 	{
 		increment->x = -1;
 	}
@@ -65,7 +65,7 @@ static void	mlx_img_line_put_set_increment(t_vector2int *increment,
 	{
 		increment->x = 1;
 	}
-	if (to.y < from.y)
+	if (to_position.y < from_position.y)
 	{
 		increment->y = -1;
 	}
@@ -75,23 +75,23 @@ static void	mlx_img_line_put_set_increment(t_vector2int *increment,
 	}
 }
 
-void	mlx_img_rise_line_put(t_img *img, t_vector2int from,
-		t_vector2int to, unsigned int color)
+void	mlx_img_gradient_rise_line_put(t_img *img, t_screen_point from,
+		t_screen_point to)
 {
 	t_vector2int	delta;
 	t_vector2int	position;
 	t_vector2int	increment;
 	int				d;
 
-	delta.x = ft_abs(to.x - from.x);
-	delta.y = ft_abs(to.y - from.y);
-	position.x = from.x;
-	position.y = from.y;
-	mlx_img_line_put_set_increment(&increment, from, to);
+	delta.x = ft_abs(to.position.x - from.position.x);
+	delta.y = ft_abs(to.position.y - from.position.y);
+	position.x = from.position.x;
+	position.y = from.position.y;
+	mlx_img_line_put_set_increment(&increment, from.position, to.position);
 	d = 2 * delta.x - delta.y;
-	while (position.y != to.y)
+	while (position.y != to.position.y)
 	{
-		mlx_img_pixel_put(img, position, color);
+		mlx_img_pixel_put(img, position, 0x00FFFFFF);
 		position.y += increment.y;
 		if (d < 0)
 			d += 2 * delta.x;
@@ -101,26 +101,26 @@ void	mlx_img_rise_line_put(t_img *img, t_vector2int from,
 			d += 2 * delta.x - 2 * delta.y;
 		}
 	}
-	mlx_img_pixel_put(img, to, color);
+	mlx_img_pixel_put(img, to.position, 0x00FFFFFF);
 }
 
-void	mlx_img_run_line_put(t_img *img, t_vector2int from, t_vector2int to,
-		unsigned int color)
+void	mlx_img_gradient_run_line_put(t_img *img, t_screen_point from,
+		t_screen_point to)
 {
 	t_vector2int	delta;
 	t_vector2int	position;
 	t_vector2int	increment;
 	int				d;
 
-	delta.x = ft_abs(to.x - from.x);
-	delta.y = ft_abs(to.y - from.y);
-	position.x = from.x;
-	position.y = from.y;
-	mlx_img_line_put_set_increment(&increment, from, to);
+	delta.x = ft_abs(to.position.x - from.position.x);
+	delta.y = ft_abs(to.position.y - from.position.y);
+	position.x = from.position.x;
+	position.y = from.position.y;
+	mlx_img_line_put_set_increment(&increment, from.position, to.position);
 	d = 2 * delta.y - delta.x;
-	while (position.x != to.x)
+	while (position.x != to.position.x)
 	{
-		mlx_img_pixel_put(img, position, color);
+		mlx_img_pixel_put(img, position, 0x00FFFFFF);
 		position.x += increment.x;
 		if (d < 0)
 			d += 2 * delta.y;
@@ -130,5 +130,5 @@ void	mlx_img_run_line_put(t_img *img, t_vector2int from, t_vector2int to,
 			d += 2 * delta.y - 2 * delta.x;
 		}
 	}
-	mlx_img_pixel_put(img, to, color);
+	mlx_img_pixel_put(img, to.position, 0x00FFFFFF);
 }

@@ -68,15 +68,28 @@ typedef union u_color
 	t_argb			bytes;
 }	t_color;
 
+typedef struct s_point
+{
+	int		height;
+	t_color	color;
+}	t_point;
+
+typedef struct s_screen_point
+{
+	t_vector2int	position;
+	t_color			color;
+}	t_screen_point;
+
 typedef struct s_map
 {
-	int				**point_heights;
+	t_point			**points;
 	t_vector2int	dimension;
 }	t_map;
 
 typedef struct s_globals
 {
 	t_mlx			mlx;
+	char			*path;
 	t_map			map;
 	t_vector2int	tile_dimension;
 	t_vector2int	origin_screen_position;

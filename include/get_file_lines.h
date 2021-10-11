@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   get_file_lines.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 09:20:36 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/10 09:20:36 by clbrunet         ###   ########.fr       */
+/*   Created: 2021/10/11 11:37:16 by clbrunet          #+#    #+#             */
+/*   Updated: 2021/10/11 11:37:16 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef GET_FILE_LINES_H
+# define GET_FILE_LINES_H
 
 # include "main.h"
 
-int		set_map(t_globals *globals);
-void	free_map(t_map *map);
+char	**get_file_lines(char const *path);
 
 #endif

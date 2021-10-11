@@ -19,7 +19,7 @@ static float	get_map_screen_height_highest(t_map *map)
 	float	highest;
 	float	current;
 
-	highest = map->point_heights[0][0] / 2.5;
+	highest = map->points[0][0].height / 2.5;
 	i = 0;
 	while (i < map->dimension.y)
 	{
@@ -27,7 +27,7 @@ static float	get_map_screen_height_highest(t_map *map)
 		while (j < map->dimension.x)
 		{
 			current = i * -0.5 + j * -0.5;
-			current += map->point_heights[i][j] / 2.5;
+			current += map->points[i][j].height / 2.5;
 			if (current > highest)
 			{
 				highest = current;
@@ -46,7 +46,7 @@ static float	get_map_screen_height_lowest(t_map *map)
 	float	lowest;
 	float	current;
 
-	lowest = map->point_heights[0][0] / 2.5;
+	lowest = map->points[0][0].height / 2.5;
 	i = 0;
 	while (i < map->dimension.y)
 	{
@@ -54,7 +54,7 @@ static float	get_map_screen_height_lowest(t_map *map)
 		while (j < map->dimension.x)
 		{
 			current = i * -0.5 + j * -0.5;
-			current += map->point_heights[i][j] / 2.5;
+			current += map->points[i][j].height / 2.5;
 			if (current < lowest)
 			{
 				lowest = current;

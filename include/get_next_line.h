@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 09:20:36 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/10 09:20:36 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/19 15:30:39 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/12/13 13:15:04 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "main.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
-int		set_map(t_globals *globals);
-void	free_map(t_map *map);
+# include <main.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 80
+# endif
+
+char	*ft_strcpy(char *dst, const char *src);
+int		failed_malloc(void *to_free);
+int		end(int bytes_read, int len, char **line, char *buf);
+
+int		get_next_line(int fd, char **line);
 
 #endif

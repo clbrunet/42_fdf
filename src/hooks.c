@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "hooks.h"
-#include "get_point_screen_positions.h"
+#include "get_screen_points.h"
 
 int	loop_hook(t_globals *globals)
 {
@@ -25,7 +25,7 @@ int	close_window_hook(t_globals *globals)
 	return (EXIT_SUCCESS);
 }
 
-void	draw_wires(t_globals *globals, t_vector2int **point_screen_positions)
+void	draw_wires(t_globals *globals, t_screen_point **screen_points)
 {
 	int	i;
 	int	j;
@@ -38,15 +38,13 @@ void	draw_wires(t_globals *globals, t_vector2int **point_screen_positions)
 		{
 			if (i > 0)
 			{
-				mlx_img_line_put(&globals->mlx.img,
-					point_screen_positions[i][j],
-					point_screen_positions[i - 1][j], 0x00FFFFFF);
+				mlx_img_gradient_line_put(&globals->mlx.img,
+					screen_points[i][j], screen_points[i - 1][j]);
 			}
 			if (j > 0)
 			{
-				mlx_img_line_put(&globals->mlx.img,
-					point_screen_positions[i][j],
-					point_screen_positions[i][j - 1], 0x00FFFFFF);
+				mlx_img_gradient_line_put(&globals->mlx.img,
+					screen_points[i][j], screen_points[i][j - 1]);
 			}
 			j++;
 		}
@@ -56,7 +54,7 @@ void	draw_wires(t_globals *globals, t_vector2int **point_screen_positions)
 
 int	key_press_hook(int keycode, t_globals *globals)
 {
-	t_vector2int	**point_screen_positions;
+	t_screen_point	**screen_points;
 
 	if (keycode == XK_Escape)
 	{
@@ -66,13 +64,14 @@ int	key_press_hook(int keycode, t_globals *globals)
 	{
 		mlx_img_square_put(&globals->mlx.img, get_vector2int(0, 0),
 			get_vector2int(WIDTH, HEIGHT), 0);
-		point_screen_positions = get_point_screen_positions(globals);
-		if (point_screen_positions == NULL)
+		screen_points = get_screen_points(globals);
+		if (screen_points == NULL)
 		{
 			write_str(2, "Malloc failed\n");
 			return (EXIT_FAILURE);
 		}
-		draw_wires(globals, point_screen_positions);
+		draw_wires(globals, screen_points);
+		free_screen_points(globals->map.dimension, screen_points);
 		mlx_put_image_to_window(globals->mlx.ptr, globals->mlx.win,
 			globals->mlx.img.ptr, 0, 0);
 	}

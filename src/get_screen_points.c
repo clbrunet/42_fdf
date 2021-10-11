@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_point_screen_positions.c                       :+:      :+:    :+:   */
+/*   get_screen_points.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 16:10:12 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/08 16:10:12 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/10 10:40:59 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_point_screen_positions.h"
+#include "get_screen_points.h"
 
-static int	allocate_point_screen_positions_rows(
-		t_vector2int **point_screen_positions, t_vector2int dimension)
+static int	allocate_screen_points_rows(
+		t_screen_point **screen_points, t_vector2int dimension)
 {
 	int	i;
 
 	i = 0;
 	while (i < dimension.y)
 	{
-		point_screen_positions[i] = malloc(dimension.x * sizeof(t_vector2int));
-		if (point_screen_positions[i] == NULL)
+		screen_points[i] = malloc(dimension.x * sizeof(t_screen_point));
+		if (screen_points[i] == NULL)
 		{
 			break ;
 		}
@@ -31,7 +31,7 @@ static int	allocate_point_screen_positions_rows(
 	{
 		while (i >= 0)
 		{
-			free(point_screen_positions[i]);
+			free(screen_points[i]);
 			i--;
 		}
 		return (EXIT_FAILURE);
@@ -39,8 +39,8 @@ static int	allocate_point_screen_positions_rows(
 	return (EXIT_SUCCESS);
 }
 
-static void	set_point_screen_positions(t_globals *globals,
-		t_vector2int **point_screen_positions)
+static void	set_screen_points(t_globals *globals,
+		t_screen_point **screen_points)
 {
 	int	i;
 	int	j;
@@ -51,12 +51,12 @@ static void	set_point_screen_positions(t_globals *globals,
 		j = 0;
 		while (j < globals->map.dimension.x)
 		{
-			point_screen_positions[i][j] = globals->origin_screen_position;
-			point_screen_positions[i][j].x += (j - i)
+			screen_points[i][j].position = globals->origin_screen_position;
+			screen_points[i][j].position.x += (j - i)
 				* globals->tile_dimension.x / 2;
-			point_screen_positions[i][j].y += (i + j)
+			screen_points[i][j].position.y += (i + j)
 				* globals->tile_dimension.y / 2;
-			point_screen_positions[i][j].y -= (globals->map.point_heights[i][j])
+			screen_points[i][j].position.y -= (globals->map.points[i][j].height)
 				* globals->tile_dimension.y / 2.5;
 			j++;
 		}
@@ -64,22 +64,35 @@ static void	set_point_screen_positions(t_globals *globals,
 	}
 }
 
-t_vector2int	**get_point_screen_positions(t_globals *globals)
+t_screen_point	**get_screen_points(t_globals *globals)
 {
-	t_vector2int	**point_screen_positions;
+	t_screen_point	**screen_points;
 
-	point_screen_positions = malloc(globals->map.dimension.y
-			* sizeof(t_vector2int*));
-	if (point_screen_positions == NULL)
+	screen_points = malloc(globals->map.dimension.y
+			* sizeof(t_screen_point *));
+	if (screen_points == NULL)
 	{
 		return (NULL);
 	}
-	if (allocate_point_screen_positions_rows(point_screen_positions,
+	if (allocate_screen_points_rows(screen_points,
 			globals->map.dimension) == EXIT_FAILURE)
 	{
-		free(point_screen_positions);
+		free(screen_points);
 		return (NULL);
 	}
-	set_point_screen_positions(globals, point_screen_positions);
-	return (point_screen_positions);
+	set_screen_points(globals, screen_points);
+	return (screen_points);
+}
+
+void	free_screen_points(t_vector2int dimension, t_screen_point **arr)
+{
+	int	i;
+
+	i = 0;
+	while (i < dimension.y)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
