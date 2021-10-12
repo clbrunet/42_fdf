@@ -15,7 +15,6 @@
 
 # include <X11/X.h>
 # include "main.h"
-# include "mlx_img_put.h"
 
 int	loop_hook(t_globals *globals);
 int	close_window_hook(t_globals *globals);

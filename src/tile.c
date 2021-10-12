@@ -81,8 +81,6 @@ void	set_tile_dimension(t_globals *globals)
 
 	size_x = globals->map.dimension.y + globals->map.dimension.x - 2;
 	size_y = get_map_screen_height(&globals->map);
-	printf("size_x: %d\n", size_x);
-	printf("size_y: %f\n", size_y);
 	if (size_x == 0)
 	{
 		globals->tile_dimension.x = 0;
