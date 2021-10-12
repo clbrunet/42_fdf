@@ -10,11 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "initialize_mlx.h"
+#include "main_bonus.h"
+#include "initialize_mlx_bonus.h"
 #include "mlx.h"
-#include "map.h"
-#include "tile.h"
+#include "map_bonus.h"
+#include "tile_bonus.h"
+
+// to remove
+void print_vector2int(char const *name, t_vector2int v2i)
+{
+	if (name)
+	{
+		printf("%s :\n", name);
+	}
+	else
+	{
+		printf("vector2int :\n");
+	}
+	printf("\tx : %d\n", v2i.x);
+	printf("\ty : %d\n", v2i.y);
+}
 
 static int	set_path(char **path_ptr, char *arg)
 {

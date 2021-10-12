@@ -1,9 +1,11 @@
 NAME = fdf
+NAME_BONUS = fdf_bonus
+
 LIBMLX = minilibx-linux/libmlx.a
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror \
-				 -I./minilibx-linux/ -I./include/
+				 -I./minilibx-linux/
 LDFLAGS = $(LIBMLX) -lXext -lX11 -lm
 
 SRCS = src/ft.c \
@@ -26,6 +28,26 @@ SRCS = src/ft.c \
 
 OBJS = $(SRCS:.c=.o)
 
+SRCS_BONUS = src_bonus/ft_bonus.c \
+						 src_bonus/ft2_bonus.c \
+						 src_bonus/get_next_line_utils_bonus.c \
+						 src_bonus/get_next_line_bonus.c \
+						 src_bonus/angle_bonus.c \
+						 src_bonus/vector2int_bonus.c \
+						 src_bonus/vector2_bonus.c \
+						 src_bonus/vector3_bonus.c \
+						 src_bonus/mlx_img_put2_bonus.c \
+						 src_bonus/mlx_img_put_bonus.c \
+						 src_bonus/get_screen_points_bonus.c \
+						 src_bonus/hooks_bonus.c \
+						 src_bonus/initialize_mlx_bonus.c \
+						 src_bonus/get_file_lines_bonus.c \
+						 src_bonus/map_bonus.c \
+						 src_bonus/tile_bonus.c \
+						 src_bonus/main_bonus.c
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+
 all: $(NAME)
 
 $(LIBMLX):
@@ -34,16 +56,19 @@ $(LIBMLX):
 $(NAME): $(LIBMLX) $(OBJS)
 	$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LDFLAGS)
 
-bonus: $(NAME)
+bonus: $(LIBMLX) $(OBJS_BONUS)
+	$(CC) -o $(NAME_BONUS) $(CFLAGS) $(OBJS_BONUS) $(LDFLAGS)
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(OBJS_BONUS)
 
 clean_libs: clean
 	make clean -C minilibx-linux/
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 
 fclean_libs: fclean clean_libs
 	rm -f $(LIBMLX)

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include "get_file_lines.h"
-#include "get_next_line.h"
+#include "map_bonus.h"
+#include "get_file_lines_bonus.h"
+#include "get_next_line_bonus.h"
 
 static int	pop_number(char *line)
 {
