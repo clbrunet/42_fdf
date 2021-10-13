@@ -4,8 +4,7 @@ NAME_BONUS = fdf_bonus
 LIBMLX = minilibx-linux/libmlx.a
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror \
-				 -I./minilibx-linux/
+CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux/
 LDFLAGS = $(LIBMLX) -lXext -lX11 -lm
 
 SRCS = src/ft.c \
@@ -36,13 +35,14 @@ SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/vector2int_bonus.c \
 						 src_bonus/vector2_bonus.c \
 						 src_bonus/vector3_bonus.c \
-						 src_bonus/mlx_img_put2_bonus.c \
 						 src_bonus/mlx_img_put_bonus.c \
-						 src_bonus/get_screen_points_bonus.c \
+						 src_bonus/mlx_img_put2_bonus.c \
+						 src_bonus/screen_points_bonus.c \
 						 src_bonus/hooks_bonus.c \
 						 src_bonus/initialize_mlx_bonus.c \
 						 src_bonus/get_file_lines_bonus.c \
 						 src_bonus/map_bonus.c \
+						 src_bonus/map2_bonus.c \
 						 src_bonus/tile_bonus.c \
 						 src_bonus/main_bonus.c
 
@@ -61,20 +61,26 @@ bonus: $(LIBMLX) $(OBJS_BONUS)
 
 clean:
 	rm -f $(OBJS)
+
+clean_bonus:
 	rm -f $(OBJS_BONUS)
 
-clean_libs: clean
+clean_libs:
 	make clean -C minilibx-linux/
 
 fclean: clean
 	rm -f $(NAME)
+
+fclean_bonus: clean_bonus
 	rm -f $(NAME_BONUS)
 
-fclean_libs: fclean clean_libs
+fclean_libs: clean_libs
 	rm -f $(LIBMLX)
 
 re: fclean all
 
-re_libs: fclean_libs all
+re_bonus: fclean_bonus bonus
 
-.PHONY: all clean clean_libs fclean fclean_libs re re_libs bonus
+re_libs: fclean_libs $(LIBMLX)
+
+.PHONY: all bonus clean clean_bonus clean_libs fclean fclean_bonus fclean_libs re re_bonus re_libs

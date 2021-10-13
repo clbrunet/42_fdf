@@ -15,7 +15,7 @@
 
 static int	initialize_mlx_win(t_mlx *mlx)
 {
-	mlx->win = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, "fdf");
+	mlx->win = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, "fdf_bonus");
 	if (mlx->win == NULL)
 	{
 		write_str(2, "Window creation failed\n");

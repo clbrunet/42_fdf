@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   main_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:21:40 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/04 11:21:40 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef MAIN_BONUS_H
+# define MAIN_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -26,6 +26,8 @@
 
 # define WIDTH 1080
 # define HEIGHT 720
+
+# define TILE_HEIGHT_FACTOR 0.4
 
 # define RESET		"\x1B[0m"
 # define BOLD		"\x1B[1m"
@@ -91,6 +93,7 @@ typedef struct s_globals
 	t_mlx			mlx;
 	char			*path;
 	t_map			map;
+	t_screen_point	**screen_points;
 	t_vector2int	tile_dimension;
 	t_vector2int	origin_screen_position;
 }	t_globals;

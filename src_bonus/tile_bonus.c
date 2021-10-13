@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile.c                                             :+:      :+:    :+:   */
+/*   tile_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 09:22:05 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/10 09:22:05 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static float	get_map_screen_height_highest(t_map *map)
 	float	highest;
 	float	current;
 
-	highest = map->points[0][0].height / 2.5;
+	highest = map->points[0][0].height * TILE_HEIGHT_FACTOR;
 	i = 0;
 	while (i < map->dimension.y)
 	{
@@ -27,7 +27,7 @@ static float	get_map_screen_height_highest(t_map *map)
 		while (j < map->dimension.x)
 		{
 			current = i * -0.5 + j * -0.5;
-			current += map->points[i][j].height / 2.5;
+			current += map->points[i][j].height * TILE_HEIGHT_FACTOR;
 			if (current > highest)
 			{
 				highest = current;
@@ -46,7 +46,7 @@ static float	get_map_screen_height_lowest(t_map *map)
 	float	lowest;
 	float	current;
 
-	lowest = map->points[0][0].height / 2.5;
+	lowest = map->points[0][0].height * TILE_HEIGHT_FACTOR;
 	i = 0;
 	while (i < map->dimension.y)
 	{
@@ -54,7 +54,7 @@ static float	get_map_screen_height_lowest(t_map *map)
 		while (j < map->dimension.x)
 		{
 			current = i * -0.5 + j * -0.5;
-			current += map->points[i][j].height / 2.5;
+			current += map->points[i][j].height * TILE_HEIGHT_FACTOR;
 			if (current < lowest)
 			{
 				lowest = current;

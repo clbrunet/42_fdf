@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 10:23:34 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/04 10:23:34 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "mlx.h"
 #include "map_bonus.h"
 #include "tile_bonus.h"
+#include "screen_points_bonus.h"
 
 // to remove
 void print_vector2int(char const *name, t_vector2int v2i)
@@ -49,13 +50,21 @@ static int	set_path(char **path_ptr, char *arg)
 	return (EXIT_SUCCESS);
 }
 
+static void	free_mlx(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->ptr, mlx->win);
+	mlx_destroy_image(mlx->ptr, mlx->img.ptr);
+	mlx_destroy_display(mlx->ptr);
+	free(mlx->ptr);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_globals	globals;
 
 	if (argc != 2)
 	{
-		write_str(2, "1 argument max required (e.g. `./fdf map/42.fdf`).\n");
+		write_str(2, "1 argument max required (e.g. `./fdf_bonus map.fdf`).\n");
 		return (EXIT_FAILURE);
 	}
 	if (set_path(&globals.path, argv[1]) == EXIT_FAILURE
@@ -67,12 +76,13 @@ int	main(int argc, char *argv[])
 	{
 		set_tile_dimension(&globals);
 		set_origin_screen_position(&globals);
-		mlx_loop(globals.mlx.ptr);
+		if (set_screen_points(&globals) == EXIT_SUCCESS)
+		{
+			mlx_loop(globals.mlx.ptr);
+			free_screen_points(globals.map.dimension, globals.screen_points);
+		}
 		free_map(&globals.map);
 	}
-	mlx_destroy_window(globals.mlx.ptr, globals.mlx.win);
-	mlx_destroy_image(globals.mlx.ptr, globals.mlx.img.ptr);
-	mlx_destroy_display(globals.mlx.ptr);
-	free(globals.mlx.ptr);
+	free_mlx(&globals.mlx);
 	return (EXIT_SUCCESS);
 }
