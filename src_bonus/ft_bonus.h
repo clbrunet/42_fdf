@@ -18,9 +18,11 @@
 
 size_t	ft_strlen(char const *s);
 size_t	ft_strslen(char const **s);
-size_t	ft_str_number_count(char const *s);
+size_t	ft_str_word_count(char const *s);
 void	free_strs(char **s);
 int		ft_strcmp(char const *s1, char const *s2);
+char	*ft_strchr(char const *s, int c);
+char	*ft_strcpy(char *dst, const char *src);
 int		write_str(int const fd, char const *str);
 int		ft_abs(int j);
 int		ft_max(int a, int b);

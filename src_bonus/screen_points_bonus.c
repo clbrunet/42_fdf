@@ -39,6 +39,16 @@ static int	allocate_screen_points_rows(
 	return (EXIT_SUCCESS);
 }
 
+void	set_screen_points_y_position(t_globals *globals,
+		t_screen_point **screen_points, int i, int j)
+{
+	screen_points[i][j].position.y = globals->origin_screen_position.y;
+	screen_points[i][j].position.y += (i + j)
+		* globals->tile_dimension.y / 2;
+	screen_points[i][j].position.y -= (globals->map.points[i][j].height)
+		* globals->tile_dimension.y * TILE_HEIGHT_FACTOR;
+}
+
 static void	set_screen_points_values(t_globals *globals,
 		t_screen_point **screen_points)
 {
@@ -54,44 +64,29 @@ static void	set_screen_points_values(t_globals *globals,
 			screen_points[i][j].position = globals->origin_screen_position;
 			screen_points[i][j].position.x += (j - i)
 				* globals->tile_dimension.x / 2;
-			screen_points[i][j].position.y += (i + j)
-				* globals->tile_dimension.y / 2;
-			screen_points[i][j].position.y -= (globals->map.points[i][j].height)
-				* globals->tile_dimension.y * TILE_HEIGHT_FACTOR;
+			set_screen_points_y_position(globals, screen_points, i, j);
+			screen_points[i][j].color = globals->map.points[i][j].color;
 			j++;
 		}
 		i++;
 	}
 }
 
-t_screen_point	**get_screen_points(t_globals *globals)
-{
-	t_screen_point	**screen_points;
-
-	screen_points = malloc(globals->map.dimension.y
-			* sizeof(t_screen_point *));
-	if (screen_points == NULL)
-	{
-		return (NULL);
-	}
-	if (allocate_screen_points_rows(screen_points,
-			globals->map.dimension) == EXIT_FAILURE)
-	{
-		free(screen_points);
-		return (NULL);
-	}
-	set_screen_points_values(globals, screen_points);
-	return (screen_points);
-}
-
 int	set_screen_points(t_globals *globals)
 {
-	globals->screen_points = get_screen_points(globals);
-	if (NULL == globals->screen_points)
+	globals->screen_points = malloc(globals->map.dimension.y
+			* sizeof(t_screen_point *));
+	if (globals->screen_points == NULL)
 	{
-		write_str(2, "Malloc failed\n");
 		return (EXIT_FAILURE);
 	}
+	if (allocate_screen_points_rows(globals->screen_points,
+			globals->map.dimension) == EXIT_FAILURE)
+	{
+		free(globals->screen_points);
+		return (EXIT_FAILURE);
+	}
+	set_screen_points_values(globals, globals->screen_points);
 	return (EXIT_SUCCESS);
 }
 

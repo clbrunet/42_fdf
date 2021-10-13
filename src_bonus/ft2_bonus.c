@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft2.c                                              :+:      :+:    :+:   */
+/*   ft2_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 20:40:38 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/10 20:40:38 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ void	free_strs(char **s)
 	free(start);
 }
 
-size_t	ft_str_number_count(char const *s)
+size_t	ft_str_word_count(char const *s)
 {
 	size_t	count;
 
 	count = 0;
-	while (*s != '\0')
+	while ('\0' != *s)
 	{
-		if ('0' <= *s && *s <= '9')
+		if (' ' != *s)
 		{
 			count++;
-			while ('0' <= *s && *s <= '9')
+			while (' ' != *s && '\0' != *s)
 			{
 				s++;
 			}
@@ -60,4 +60,37 @@ size_t	ft_str_number_count(char const *s)
 		}
 	}
 	return (count);
+}
+
+char	*ft_strchr(char const *s, int c)
+{
+	char	c_c;
+
+	c_c = (char)c;
+	while (*s && *s != c_c)
+	{
+		s++;
+	}
+	if (*s == c_c)
+	{
+		return ((char *)s);
+	}
+	return ((char *) NULL);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	char const	*dst_bp;
+
+	if (!dst || !src)
+		return (0);
+	dst_bp = dst;
+	while (*src)
+	{
+		*dst = *src;
+		dst++;
+		src++;
+	}
+	*dst = 0;
+	return ((char *)dst_bp);
 }

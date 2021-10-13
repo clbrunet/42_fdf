@@ -37,12 +37,14 @@ SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/vector3_bonus.c \
 						 src_bonus/mlx_img_put_bonus.c \
 						 src_bonus/mlx_img_put2_bonus.c \
+						 src_bonus/mlx_img_put3_bonus.c \
 						 src_bonus/screen_points_bonus.c \
 						 src_bonus/hooks_bonus.c \
 						 src_bonus/initialize_mlx_bonus.c \
 						 src_bonus/get_file_lines_bonus.c \
 						 src_bonus/map_bonus.c \
 						 src_bonus/map2_bonus.c \
+						 src_bonus/map3_bonus.c \
 						 src_bonus/tile_bonus.c \
 						 src_bonus/main_bonus.c
 

@@ -25,7 +25,6 @@
 #  define BUFFER_SIZE 80
 # endif
 
-char	*ft_strcpy(char *dst, const char *src);
 int		failed_malloc(void *to_free);
 int		end(int bytes_read, int len, char **line, char *buf);
 

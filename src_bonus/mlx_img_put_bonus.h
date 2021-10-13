@@ -15,11 +15,19 @@
 
 # include "main_bonus.h"
 
+typedef struct s_gradient
+{
+	float	portion;
+	float	portion_increment;
+}	t_gradient;
+
 void	mlx_img_pixel_put(t_img *img, t_vector2int position,
 			unsigned int color);
 
 void	mlx_img_square_put(t_img *img, t_vector2int top_left_position,
 			t_vector2int dimension, unsigned int color);
+
+t_color	get_color_mix_by_portion(t_color a, t_color b, float b_portion);
 
 void	mlx_img_gradient_horizontal_line_put(t_img *img, t_screen_point from,
 			t_screen_point to);

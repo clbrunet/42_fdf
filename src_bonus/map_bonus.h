@@ -15,6 +15,8 @@
 
 # include "main_bonus.h"
 
+int		pop_color(char *line, int *i);
+
 int		set_map(t_globals *globals);
 void	free_map(t_map *map);
 

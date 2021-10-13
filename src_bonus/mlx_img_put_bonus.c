@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_img_put.c                                      :+:      :+:    :+:   */
+/*   mlx_img_put_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 16:23:41 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/04 16:23:41 by clbrunet         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ void	mlx_img_square_put(t_img *img, t_vector2int top_left_position,
 		position.x = top_left_position.x;
 		position.y++;
 	}
+}
+
+t_color	get_color_mix_by_portion(t_color a, t_color b, float b_portion)
+{
+	t_color	mix;
+
+	mix.bytes.alpha = a.bytes.alpha * (1 - b_portion)
+		+ b.bytes.alpha * b_portion;
+	mix.bytes.red = a.bytes.red * (1 - b_portion)
+		+ b.bytes.red * b_portion;
+	mix.bytes.green = a.bytes.green * (1 - b_portion)
+		+ b.bytes.green * b_portion;
+	mix.bytes.blue = a.bytes.blue * (1 - b_portion)
+		+ b.bytes.blue * b_portion;
+	return (mix);
 }
 
 void	mlx_img_gradient_line_put(t_img *img, t_screen_point from,

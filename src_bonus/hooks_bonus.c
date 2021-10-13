@@ -74,14 +74,12 @@ int	key_press_hook(int keycode, t_globals *globals)
 	else if (XK_Up == keycode)
 	{
 		globals->map.points[0][1].height++;
-		globals->screen_points[0][1].position.y -= globals->tile_dimension.y
-			* TILE_HEIGHT_FACTOR;
+		set_screen_points_y_position(globals, globals->screen_points, 0, 1);
 	}
 	else if (XK_Down == keycode)
 	{
 		globals->map.points[0][1].height--;
-		globals->screen_points[0][1].position.y += globals->tile_dimension.y
-			* TILE_HEIGHT_FACTOR;
+		set_screen_points_y_position(globals, globals->screen_points, 0, 1);
 	}
 	else if (XK_Left == keycode)
 	{
