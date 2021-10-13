@@ -14,59 +14,81 @@
 #include "map_bonus.h"
 #include "screen_points_bonus.h"
 
-static void	draw_wires(t_globals *globals)
+static void	key_press_hook4(int keycode, t_globals *globals)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < globals->map.dimension.y)
+	if (XK_j == keycode)
 	{
-		j = 0;
-		while (j < globals->map.dimension.x)
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->origin_screen_position.y -= TRANSLATION_STEP;
+		if (set_screen_points(globals) == EXIT_FAILURE)
 		{
-			if (i > 0)
-			{
-				mlx_img_gradient_line_put(&globals->mlx.img,
-					globals->screen_points[i][j],
-					globals->screen_points[i - 1][j]);
-			}
-			if (j > 0)
-			{
-				mlx_img_gradient_line_put(&globals->mlx.img,
-					globals->screen_points[i][j],
-					globals->screen_points[i][j - 1]);
-			}
-			j++;
+			close_window_hook(globals);
 		}
-		i++;
 	}
-}
-
-int	loop_hook(t_globals *globals)
-{
-	static int	s = 0;
-
-	mlx_img_square_put(&globals->mlx.img, get_vector2int(0, 0),
-		get_vector2int(WIDTH, HEIGHT), 0);
-	if (s == 0)
+	else if (XK_k == keycode)
 	{
-		s++;
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->origin_screen_position.y += TRANSLATION_STEP;
+		if (set_screen_points(globals) == EXIT_FAILURE)
+		{
+			close_window_hook(globals);
+		}
 	}
-	draw_wires(globals);
-	mlx_put_image_to_window(globals->mlx.ptr, globals->mlx.win,
-		globals->mlx.img.ptr, 0, 0);
-	return (EXIT_SUCCESS);
 }
 
-int	close_window_hook(t_globals *globals)
+static void	key_press_hook3(int keycode, t_globals *globals)
 {
-	mlx_loop_end(globals->mlx.ptr);
-	return (EXIT_SUCCESS);
+	if (XK_h == keycode)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->origin_screen_position.x += TRANSLATION_STEP;
+		if (set_screen_points(globals) == EXIT_FAILURE)
+		{
+			close_window_hook(globals);
+		}
+	}
+	else if (XK_l == keycode)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->origin_screen_position.x -= TRANSLATION_STEP;
+		if (set_screen_points(globals) == EXIT_FAILURE)
+		{
+			close_window_hook(globals);
+		}
+	}
+	else
+	{
+		return (key_press_hook4(keycode, globals));
+	}
+}
+
+static void	key_press_hook2(int keycode, t_globals *globals)
+{
+	if (XK_Left == keycode)
+	{
+		if (left_rotate_map(globals) == EXIT_FAILURE)
+		{
+			close_window_hook(globals);
+		}
+	}
+	else if (XK_Right == keycode)
+	{
+		if (right_rotate_map(globals) == EXIT_FAILURE)
+		{
+			close_window_hook(globals);
+		}
+	}
+	else
+	{
+		return (key_press_hook3(keycode, globals));
+	}
 }
 
 int	key_press_hook(int keycode, t_globals *globals)
 {
+	if (XK_d == keycode)
+	{
+	}
 	if (XK_Escape == keycode)
 	{
 		close_window_hook(globals);
@@ -81,13 +103,9 @@ int	key_press_hook(int keycode, t_globals *globals)
 		globals->map.points[0][1].height--;
 		set_screen_points_y_position(globals, globals->screen_points, 0, 1);
 	}
-	else if (XK_Left == keycode)
+	else
 	{
-		left_rotate_map(globals);
-	}
-	else if (XK_Right == keycode)
-	{
-		right_rotate_map(globals);
+		key_press_hook2(keycode, globals);
 	}
 	return (EXIT_SUCCESS);
 }

@@ -78,11 +78,13 @@ int	set_screen_points(t_globals *globals)
 			* sizeof(t_screen_point *));
 	if (globals->screen_points == NULL)
 	{
+		write_str(2, "Malloc failed\n");
 		return (EXIT_FAILURE);
 	}
 	if (allocate_screen_points_rows(globals->screen_points,
 			globals->map.dimension) == EXIT_FAILURE)
 	{
+		write_str(2, "Malloc failed\n");
 		free(globals->screen_points);
 		return (EXIT_FAILURE);
 	}

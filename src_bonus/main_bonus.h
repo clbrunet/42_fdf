@@ -29,6 +29,8 @@
 
 # define TILE_HEIGHT_FACTOR 0.4
 
+# define TRANSLATION_STEP 5
+
 # define RESET		"\x1B[0m"
 # define BOLD		"\x1B[1m"
 # define BLACK		"\x1B[30m"

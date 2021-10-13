@@ -77,14 +77,13 @@ int	left_rotate_map(t_globals *globals)
 	fill_left_rotate_map(globals, rotated_map_points);
 	free_map(&globals->map);
 	free_screen_points(globals->map.dimension, globals->screen_points);
+	globals->origin_screen_position.x += globals->tile_dimension.y
+		* (globals->map.dimension.x - globals->map.dimension.y);
 	globals->map.points = rotated_map_points;
 	tmp = globals->map.dimension.x;
 	globals->map.dimension.x = globals->map.dimension.y;
 	globals->map.dimension.y = tmp;
-	globals->origin_screen_position.x
-		= ft_abs(globals->origin_screen_position.x - WIDTH);
-	set_screen_points(globals);
-	return (EXIT_SUCCESS);
+	return (set_screen_points(globals));
 }
 
 static void	fill_right_rotate_map(t_globals *globals,
@@ -124,12 +123,11 @@ int	right_rotate_map(t_globals *globals)
 	fill_right_rotate_map(globals, rotated_map_points);
 	free_map(&globals->map);
 	free_screen_points(globals->map.dimension, globals->screen_points);
+	globals->origin_screen_position.x += globals->tile_dimension.y
+		* (globals->map.dimension.x - globals->map.dimension.y);
 	globals->map.points = rotated_map_points;
 	tmp = globals->map.dimension.x;
 	globals->map.dimension.x = globals->map.dimension.y;
 	globals->map.dimension.y = tmp;
-	globals->origin_screen_position.x
-		= ft_abs(globals->origin_screen_position.x - WIDTH);
-	set_screen_points(globals);
-	return (EXIT_SUCCESS);
+	return (set_screen_points(globals));
 }
