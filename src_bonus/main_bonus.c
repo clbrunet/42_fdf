@@ -16,6 +16,7 @@
 #include "map_bonus.h"
 #include "tile_bonus.h"
 #include "screen_points_bonus.h"
+#include <stdio.h>
 
 // to remove
 void print_vector2int(char const *name, t_vector2int v2i)
@@ -58,31 +59,44 @@ static void	free_mlx(t_mlx *mlx)
 	free(mlx->ptr);
 }
 
+static int	start(t_globals *globals)
+{
+	if (EXIT_FAILURE == set_map(globals))
+	{
+		return (EXIT_FAILURE);
+	}
+	globals->zoom = 1;
+	set_tile_dimension(globals);
+	set_origin_screen_position(globals);
+	globals->base_origin_center_distance.x = globals->origin_screen_position.x - (int)(WIDTH / 2);
+	globals->base_origin_center_distance.y = globals->origin_screen_position.y - (int)(HEIGHT / 2);
+	if (EXIT_FAILURE == set_screen_points(globals))
+	{
+		free_map(&globals->map);
+		return (EXIT_FAILURE);
+	}
+	mlx_loop(globals->mlx.ptr);
+	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_map(&globals->map);
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_globals	globals;
+	int			exit_code;
 
 	if (argc != 2)
 	{
 		write_str(2, "1 argument max required (e.g. `./fdf_bonus map.fdf`).\n");
 		return (EXIT_FAILURE);
 	}
-	if (set_path(&globals.path, argv[1]) == EXIT_FAILURE
+	else if (set_path(&globals.path, argv[1]) == EXIT_FAILURE
 		|| initialize_mlx(&globals) == EXIT_FAILURE)
 	{
 		return (EXIT_FAILURE);
 	}
-	if (set_map(&globals) == EXIT_SUCCESS)
-	{
-		set_tile_dimension(&globals);
-		set_origin_screen_position(&globals);
-		if (set_screen_points(&globals) == EXIT_SUCCESS)
-		{
-			mlx_loop(globals.mlx.ptr);
-			free_screen_points(globals.map.dimension, globals.screen_points);
-		}
-		free_map(&globals.map);
-	}
+	exit_code = start(&globals);
 	free_mlx(&globals.mlx);
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }

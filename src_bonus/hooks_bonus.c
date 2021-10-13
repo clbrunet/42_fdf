@@ -12,27 +12,68 @@
 
 #include "hooks_bonus.h"
 #include "map_bonus.h"
+#include "tile_bonus.h"
 #include "screen_points_bonus.h"
+
+static void	key_press_hook5(int keycode, t_globals *globals)
+{
+	if (XK_0 == keycode)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->zoom = 1;
+		if (EXIT_FAILURE == set_screen_points(globals))
+			close_window_hook(globals);
+	}
+	else if (XK_minus == keycode && globals->zoom > 0.15)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->zoom -= 0.1;
+		globals->origin_screen_position.x = (int)(WIDTH / 2)
+			+ globals->zoom * (globals->origin_screen_position.x - (int)(WIDTH / 2)) / (globals->zoom + 0.1);
+		globals->origin_screen_position.y = (int)(HEIGHT / 2)
+			+ globals->zoom * (globals->origin_screen_position.y - (int)(HEIGHT / 2)) / (globals->zoom + 0.1);
+		if (EXIT_FAILURE == set_screen_points(globals))
+			close_window_hook(globals);
+	}
+	else if (XK_equal == keycode)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		globals->zoom += 0.1;
+		globals->origin_screen_position.x = (int)(WIDTH / 2)
+			+ globals->zoom * (globals->origin_screen_position.x - (int)(WIDTH / 2)) / (globals->zoom - 0.1);
+		globals->origin_screen_position.y = (int)(HEIGHT / 2)
+			+ globals->zoom * (globals->origin_screen_position.y - (int)(HEIGHT / 2)) / (globals->zoom - 0.1);
+		if (EXIT_FAILURE == set_screen_points(globals))
+			close_window_hook(globals);
+	}
+}
 
 static void	key_press_hook4(int keycode, t_globals *globals)
 {
 	if (XK_j == keycode)
 	{
 		free_screen_points(globals->map.dimension, globals->screen_points);
-		globals->origin_screen_position.y -= TRANSLATION_STEP;
+		globals->origin_screen_position.y -= TRANSLATION_STEP * globals->zoom;
 		if (set_screen_points(globals) == EXIT_FAILURE)
-		{
 			close_window_hook(globals);
-		}
 	}
 	else if (XK_k == keycode)
 	{
 		free_screen_points(globals->map.dimension, globals->screen_points);
-		globals->origin_screen_position.y += TRANSLATION_STEP;
+		globals->origin_screen_position.y += TRANSLATION_STEP * globals->zoom;
 		if (set_screen_points(globals) == EXIT_FAILURE)
-		{
 			close_window_hook(globals);
-		}
+	}
+	else if (XK_r == keycode)
+	{
+		free_screen_points(globals->map.dimension, globals->screen_points);
+		set_origin_screen_position(globals);
+		if (set_screen_points(globals) == EXIT_FAILURE)
+			close_window_hook(globals);
+	}
+	else
+	{
+		return (key_press_hook5(keycode, globals));
 	}
 }
 
@@ -41,7 +82,7 @@ static void	key_press_hook3(int keycode, t_globals *globals)
 	if (XK_h == keycode)
 	{
 		free_screen_points(globals->map.dimension, globals->screen_points);
-		globals->origin_screen_position.x += TRANSLATION_STEP;
+		globals->origin_screen_position.x += TRANSLATION_STEP * globals->zoom;
 		if (set_screen_points(globals) == EXIT_FAILURE)
 		{
 			close_window_hook(globals);
@@ -50,7 +91,7 @@ static void	key_press_hook3(int keycode, t_globals *globals)
 	else if (XK_l == keycode)
 	{
 		free_screen_points(globals->map.dimension, globals->screen_points);
-		globals->origin_screen_position.x -= TRANSLATION_STEP;
+		globals->origin_screen_position.x -= TRANSLATION_STEP * globals->zoom;
 		if (set_screen_points(globals) == EXIT_FAILURE)
 		{
 			close_window_hook(globals);
@@ -88,6 +129,14 @@ int	key_press_hook(int keycode, t_globals *globals)
 {
 	if (XK_d == keycode)
 	{
+		// printf("%d\n", (int)(WIDTH / 2) - globals->origin_screen_position.x);
+		// printf("%d\n", (int)(HEIGHT / 2) - globals->origin_screen_position.y);
+		// printf("%f\n", globals->zoom * ((int)(HEIGHT / 2) - globals->origin_screen_position.y));
+		// printf("%f\n", globals->zoom * ((int)(HEIGHT / 2) - globals->origin_screen_position.y)
+		// 	- (int)(HEIGHT / 2) - globals->origin_screen_position.y);
+		// printf("%f\n", (int)(HEIGHT / 2) - globals->origin_screen_position.y
+		// 	- globals->zoom * ((int)(HEIGHT / 2) - globals->origin_screen_position.y));
+		printf("%f\n", 0.1 * ((int)(HEIGHT / 2) - globals->origin_screen_position.y));
 	}
 	if (XK_Escape == keycode)
 	{

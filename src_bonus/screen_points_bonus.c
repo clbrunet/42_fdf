@@ -44,9 +44,9 @@ void	set_screen_points_y_position(t_globals *globals,
 {
 	screen_points[i][j].position.y = globals->origin_screen_position.y;
 	screen_points[i][j].position.y += (i + j)
-		* globals->tile_dimension.y / 2;
+		* (globals->tile_dimension.y * globals->zoom) / 2;
 	screen_points[i][j].position.y -= (globals->map.points[i][j].height)
-		* globals->tile_dimension.y * TILE_HEIGHT_FACTOR;
+		* (globals->tile_dimension.y * globals->zoom) * TILE_HEIGHT_FACTOR;
 }
 
 static void	set_screen_points_values(t_globals *globals,
@@ -63,7 +63,7 @@ static void	set_screen_points_values(t_globals *globals,
 		{
 			screen_points[i][j].position = globals->origin_screen_position;
 			screen_points[i][j].position.x += (j - i)
-				* globals->tile_dimension.x / 2;
+				* (globals->tile_dimension.x * globals->zoom) / 2;
 			set_screen_points_y_position(globals, screen_points, i, j);
 			screen_points[i][j].color = globals->map.points[i][j].color;
 			j++;
