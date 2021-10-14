@@ -39,6 +39,8 @@ SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/mlx_img_put2_bonus.c \
 						 src_bonus/mlx_img_put3_bonus.c \
 						 src_bonus/screen_points_bonus.c \
+						 src_bonus/translate_bonus.c \
+						 src_bonus/zoom_bonus.c \
 						 src_bonus/hooks_bonus.c \
 						 src_bonus/hooks2_bonus.c \
 						 src_bonus/initialize_mlx_bonus.c \

@@ -98,7 +98,6 @@ typedef struct s_globals
 	t_screen_point	**screen_points;
 	t_vector2int	tile_dimension;
 	t_vector2int	origin_screen_position;
-	t_vector2int	base_origin_center_distance;
 	float			zoom;
 }	t_globals;
 

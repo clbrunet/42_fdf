@@ -68,8 +68,6 @@ static int	start(t_globals *globals)
 	globals->zoom = 1;
 	set_tile_dimension(globals);
 	set_origin_screen_position(globals);
-	globals->base_origin_center_distance.x = globals->origin_screen_position.x - (int)(WIDTH / 2);
-	globals->base_origin_center_distance.y = globals->origin_screen_position.y - (int)(HEIGHT / 2);
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
 		free_map(&globals->map);
