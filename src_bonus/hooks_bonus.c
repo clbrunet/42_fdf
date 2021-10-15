@@ -92,29 +92,27 @@ static int	key_press_hook_rotate_map(int keycode, t_globals *globals)
 
 int	key_press_hook(int keycode, t_globals *globals)
 {
-	if (XK_d == keycode)
-	{
-	}
 	if (XK_Escape == keycode)
-	{
 		mlx_loop_end(globals->mlx.ptr);
-	}
 	else if (XK_Up == keycode)
 	{
-		globals->map.points[0][1].height++;
-		set_screen_points_y_position(globals, globals->screen_points, 0, 1);
+		globals->map.points[globals->selected_point.y]
+		[globals->selected_point.x].height++;
+		set_screen_points_y_position(globals, globals->screen_points,
+			globals->selected_point.y, globals->selected_point.x);
 	}
 	else if (XK_Down == keycode)
 	{
-		globals->map.points[0][1].height--;
-		set_screen_points_y_position(globals, globals->screen_points, 0, 1);
+		globals->map.points[globals->selected_point.y]
+		[globals->selected_point.x].height--;
+		set_screen_points_y_position(globals, globals->screen_points,
+			globals->selected_point.y, globals->selected_point.x);
 	}
 	else if (EXIT_SUCCESS == key_press_hook_rotate_map(keycode, globals)
 		|| EXIT_SUCCESS == key_press_hook_translate(keycode, globals)
 		|| EXIT_SUCCESS == key_press_hook_zoom(keycode, globals))
-	{
-	}
-	return (EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 int	key_release_hook(int keycode, t_globals *globals)

@@ -66,20 +66,17 @@ void	mlx_img_gradient_line_put(t_img *img, t_screen_point from,
 
 	delta_x = ft_abs(to.position.x - from.position.x);
 	delta_y = ft_abs(to.position.y - from.position.y);
+	if ((from.position.x < 0 && to.position.x < 0)
+		|| (from.position.x >= WIDTH && to.position.x >= WIDTH)
+		|| (from.position.y < 0 && to.position.y < 0)
+		|| (from.position.y >= HEIGHT && to.position.y >= HEIGHT))
+		return ;
 	if (from.position.y == to.position.y)
-	{
 		mlx_img_gradient_horizontal_line_put(img, from, to);
-	}
 	else if (from.position.x == to.position.x)
-	{
 		mlx_img_gradient_vertical_line_put(img, from, to);
-	}
 	else if (delta_y > delta_x)
-	{
 		mlx_img_gradient_rise_line_put(img, from, to);
-	}
 	else
-	{
 		mlx_img_gradient_run_line_put(img, from, to);
-	}
 }

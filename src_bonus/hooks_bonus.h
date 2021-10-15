@@ -14,6 +14,7 @@
 # define HOOKS_BONUS_H
 
 # include <X11/X.h>
+# include <math.h>
 # include "main_bonus.h"
 # include "mlx_img_put_bonus.h"
 
@@ -21,5 +22,6 @@ int	loop_hook(t_globals *globals);
 int	close_window_hook(t_globals *globals);
 int	key_press_hook(int keycode, t_globals *globals);
 int	key_release_hook(int keycode, t_globals *globals);
+int	mouse_hook(int button, int x, int y, t_globals *globals);
 
 #endif

@@ -99,6 +99,7 @@ typedef struct s_globals
 	t_vector2int	tile_dimension;
 	t_vector2int	origin_screen_position;
 	float			zoom;
+	t_vector2int	selected_point;
 }	t_globals;
 
 // to remove

@@ -45,6 +45,7 @@ static int	initialize_mlx_img(t_mlx *mlx)
 static int	initialize_mlx_hooks(t_globals *globals)
 {
 	mlx_loop_hook(globals->mlx.ptr, &loop_hook, globals);
+	mlx_mouse_hook(globals->mlx.win, &mouse_hook, globals);
 	mlx_hook(globals->mlx.win, KeyPress, KeyPressMask, &key_press_hook,
 		globals);
 	mlx_hook(globals->mlx.win, KeyRelease, KeyReleaseMask, &key_release_hook,

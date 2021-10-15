@@ -73,6 +73,8 @@ static int	start(t_globals *globals)
 		free_map(&globals->map);
 		return (EXIT_FAILURE);
 	}
+	globals->selected_point.x = 0;
+	globals->selected_point.y = 0;
 	mlx_loop(globals->mlx.ptr);
 	free_screen_points(globals->map.dimension, globals->screen_points);
 	free_map(&globals->map);

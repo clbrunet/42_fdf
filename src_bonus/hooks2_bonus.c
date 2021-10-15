@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "hooks_bonus.h"
-#include "map_bonus.h"
-#include "screen_points_bonus.h"
 
 static void	draw_wires(t_globals *globals)
 {

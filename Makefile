@@ -43,6 +43,7 @@ SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/zoom_bonus.c \
 						 src_bonus/hooks_bonus.c \
 						 src_bonus/hooks2_bonus.c \
+						 src_bonus/hooks3_bonus.c \
 						 src_bonus/initialize_mlx_bonus.c \
 						 src_bonus/get_file_lines_bonus.c \
 						 src_bonus/map_bonus.c \

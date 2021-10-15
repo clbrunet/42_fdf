@@ -65,6 +65,9 @@ int	left_rotate_map(t_globals *globals)
 	t_point	**rotated_map_points;
 	int		tmp;
 
+	tmp = globals->selected_point.x;
+	globals->selected_point.y = ft_abs(tmp - (globals->map.dimension.x - 1));
+	globals->selected_point.x = globals->selected_point.y;
 	rotated_map_points = malloc(globals->map.dimension.x * sizeof(t_point *));
 	if (NULL == rotated_map_points
 		|| allocate_rotated_map_points_row(rotated_map_points,
@@ -111,6 +114,9 @@ int	right_rotate_map(t_globals *globals)
 	t_point	**rotated_map_points;
 	int		tmp;
 
+	tmp = globals->selected_point.y;
+	globals->selected_point.y = globals->selected_point.x;
+	globals->selected_point.x = ft_abs(tmp - (globals->map.dimension.y - 1));
 	rotated_map_points = malloc(globals->map.dimension.x * sizeof(t_point *));
 	if (NULL == rotated_map_points
 		|| allocate_rotated_map_points_row(rotated_map_points,
