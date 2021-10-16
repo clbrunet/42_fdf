@@ -19,7 +19,6 @@ void	set_screen_points_y_position(t_globals *globals,
 			t_screen_point **screen_points, int i, int j);
 
 int		set_screen_points(t_globals *globals);
-void	free_screen_points(t_vector2int dimension,
-			t_screen_point **arr);
+void	free_screen_points(t_globals *globals);
 
 #endif

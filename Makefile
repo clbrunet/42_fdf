@@ -4,7 +4,7 @@ NAME_BONUS = fdf_bonus
 LIBMLX = minilibx-linux/libmlx.a
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux/
+CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux/ -g3 -fsanitize=address
 LDFLAGS = $(LIBMLX) -lXext -lX11 -lm
 
 SRCS = src/ft.c \
@@ -29,6 +29,7 @@ OBJS = $(SRCS:.c=.o)
 
 SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/ft2_bonus.c \
+						 src_bonus/ft3_bonus.c \
 						 src_bonus/get_next_line_utils_bonus.c \
 						 src_bonus/get_next_line_bonus.c \
 						 src_bonus/angle_bonus.c \

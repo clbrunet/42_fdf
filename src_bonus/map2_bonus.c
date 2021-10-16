@@ -12,6 +12,7 @@
 
 #include "map_bonus.h"
 #include "screen_points_bonus.h"
+#include "ft_bonus.h"
 
 static int	allocate_rotated_map_points_row(t_point **arr, int row_nb,
 		int row_size)
@@ -32,8 +33,8 @@ static int	allocate_rotated_map_points_row(t_point **arr, int row_nb,
 	{
 		while (i >= 0)
 		{
-			i--;
 			free(arr[i]);
+			i--;
 		}
 		return (EXIT_FAILURE);
 	}
@@ -66,8 +67,8 @@ int	left_rotate_map(t_globals *globals)
 	int		tmp;
 
 	tmp = globals->selected_point.x;
-	globals->selected_point.y = ft_abs(tmp - (globals->map.dimension.x - 1));
 	globals->selected_point.x = globals->selected_point.y;
+	globals->selected_point.y = ft_abs(tmp - (globals->map.dimension.x - 1));
 	rotated_map_points = malloc(globals->map.dimension.x * sizeof(t_point *));
 	if (NULL == rotated_map_points
 		|| allocate_rotated_map_points_row(rotated_map_points,
@@ -79,7 +80,7 @@ int	left_rotate_map(t_globals *globals)
 	}
 	fill_left_rotate_map(globals, rotated_map_points);
 	free_map(&globals->map);
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x += globals->tile_dimension.y
 		* (globals->map.dimension.x - globals->map.dimension.y);
 	globals->map.points = rotated_map_points;
@@ -128,7 +129,7 @@ int	right_rotate_map(t_globals *globals)
 	}
 	fill_right_rotate_map(globals, rotated_map_points);
 	free_map(&globals->map);
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x += globals->tile_dimension.y
 		* (globals->map.dimension.x - globals->map.dimension.y);
 	globals->map.points = rotated_map_points;

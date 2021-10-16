@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx_img_put_bonus.h"
+#include "ft_bonus.h"
 
 void	mlx_img_gradient_horizontal_line_put(t_img *img, t_screen_point from,
 			t_screen_point to)

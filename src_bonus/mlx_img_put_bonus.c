@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx_img_put_bonus.h"
+#include "ft_bonus.h"
 
 void	mlx_img_pixel_put(t_img *img, t_vector2int position,
 		unsigned int color)

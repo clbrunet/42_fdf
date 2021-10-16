@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include "ft_bonus.h"
 
 static int	ft_strdup_start_of_line(char *buf, char **line, int len)
 {

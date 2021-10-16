@@ -12,27 +12,23 @@
 
 #include "zoom_bonus.h"
 #include "main_bonus.h"
+#include "tile_bonus.h"
 #include "screen_points_bonus.h"
 
 void	zoom_reset(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
-	globals->origin_screen_position.x = (int)(WIDTH / 2)
-		+ (globals->origin_screen_position.x - (int)(WIDTH / 2))
-		/ globals->zoom;
-	globals->origin_screen_position.y = (int)(HEIGHT / 2)
-		+ (globals->origin_screen_position.y - (int)(HEIGHT / 2))
-		/ globals->zoom;
+	free_screen_points(globals);
+	set_tile_dimension(globals);
 	globals->zoom = 1;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
 void	zoom_in(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x = (int)(WIDTH / 2)
 		+ (globals->zoom + 0.1)
 		* (globals->origin_screen_position.x - (int)(WIDTH / 2))
@@ -44,7 +40,7 @@ void	zoom_in(t_globals *globals)
 	globals->zoom += 0.1;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
@@ -54,7 +50,7 @@ void	zoom_out(t_globals *globals)
 	{
 		return ;
 	}
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x = (int)(WIDTH / 2)
 		+ (globals->zoom - 0.1)
 		* (globals->origin_screen_position.x - (int)(WIDTH / 2))
@@ -66,7 +62,7 @@ void	zoom_out(t_globals *globals)
 	globals->zoom -= 0.1;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
@@ -76,7 +72,7 @@ void	zoom(t_globals *globals, float zoom)
 	{
 		return ;
 	}
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x = (int)(WIDTH / 2) + zoom
 		* (globals->origin_screen_position.x - (int)(WIDTH / 2));
 	globals->origin_screen_position.y = (int)(HEIGHT / 2) + zoom
@@ -84,6 +80,6 @@ void	zoom(t_globals *globals, float zoom)
 	globals->zoom = zoom;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }

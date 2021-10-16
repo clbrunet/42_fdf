@@ -49,12 +49,12 @@ static void	select_point(t_vector2int mouse_position, t_globals *globals)
 
 static void	center_position(t_vector2int position, t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x += (int)(WIDTH / 2) - position.x;
 	globals->origin_screen_position.y += (int)(HEIGHT / 2) - position.y;
 	if (set_screen_points(globals) == EXIT_FAILURE)
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
@@ -68,5 +68,11 @@ int	mouse_hook(int button, int x, int y, t_globals *globals)
 		zoom_out(globals);
 	else if (button == Button4)
 		zoom_in(globals);
+	return (EXIT_SUCCESS);
+}
+
+int	close_window_hook(t_globals *globals)
+{
+	end_loop(globals);
 	return (EXIT_SUCCESS);
 }

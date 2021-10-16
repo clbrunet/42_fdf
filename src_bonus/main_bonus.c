@@ -16,9 +16,9 @@
 #include "map_bonus.h"
 #include "tile_bonus.h"
 #include "screen_points_bonus.h"
-#include <stdio.h>
+#include "ft_bonus.h"
 
-// to remove
+// @todo remove
 void print_vector2int(char const *name, t_vector2int v2i)
 {
 	if (name)
@@ -31,6 +31,31 @@ void print_vector2int(char const *name, t_vector2int v2i)
 	}
 	printf("\tx : %d\n", v2i.x);
 	printf("\ty : %d\n", v2i.y);
+}
+
+// @todo remove
+static int fail_at = 0;
+
+// @todo remove
+void *xmalloc(size_t size)
+{
+	static int	s = 0;
+	s++;
+	
+	if (s == fail_at)
+	{
+		return (NULL);
+	}
+	else
+	{
+		return (malloc(size));
+	}
+}
+
+void	end_loop(t_globals *globals)
+{
+	globals->is_end_loop = 1;
+	mlx_loop_end(globals->mlx.ptr);
 }
 
 static int	set_path(char **path_ptr, char *arg)
@@ -65,6 +90,7 @@ static int	start(t_globals *globals)
 	{
 		return (EXIT_FAILURE);
 	}
+	globals->is_end_loop = 0;
 	globals->zoom = 1;
 	set_tile_dimension(globals);
 	set_origin_screen_position(globals);
@@ -76,7 +102,7 @@ static int	start(t_globals *globals)
 	globals->selected_point.x = 0;
 	globals->selected_point.y = 0;
 	mlx_loop(globals->mlx.ptr);
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	free_map(&globals->map);
 	return (EXIT_SUCCESS);
 }
@@ -86,7 +112,7 @@ int	main(int argc, char *argv[])
 	t_globals	globals;
 	int			exit_code;
 
-	if (argc != 2)
+	if (2 != argc)
 	{
 		write_str(2, "1 argument max required (e.g. `./fdf_bonus map.fdf`).\n");
 		return (EXIT_FAILURE);

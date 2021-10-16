@@ -17,41 +17,41 @@
 
 void	translate_left(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x += TRANSLATION_STEP * globals->zoom;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
 void	translate_right(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.x -= TRANSLATION_STEP * globals->zoom;
 	if (set_screen_points(globals) == EXIT_FAILURE)
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
 void	translate_down(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.y -= TRANSLATION_STEP * globals->zoom;
 	if (set_screen_points(globals) == EXIT_FAILURE)
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 
 void	translate_up(t_globals *globals)
 {
-	free_screen_points(globals->map.dimension, globals->screen_points);
+	free_screen_points(globals);
 	globals->origin_screen_position.y += TRANSLATION_STEP * globals->zoom;
 	if (set_screen_points(globals) == EXIT_FAILURE)
 	{
-		mlx_loop_end(globals->mlx.ptr);
+		end_loop(globals);
 	}
 }
 

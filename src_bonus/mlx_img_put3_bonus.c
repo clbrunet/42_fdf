@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx_img_put_bonus.h"
+#include "ft_bonus.h"
 
 static void	mlx_img_line_put_set_increment(t_vector2int *increment,
 		t_vector2int from_position, t_vector2int to_position)

@@ -19,7 +19,6 @@
 # include <X11/keysym.h>
 # include "mlx.h"
 
-# include "ft_bonus.h"
 # include "vector2int_bonus.h"
 # include "vector2_bonus.h"
 # include "vector3_bonus.h"
@@ -93,6 +92,7 @@ typedef struct s_map
 typedef struct s_globals
 {
 	t_mlx			mlx;
+	int				is_end_loop;
 	char			*path;
 	t_map			map;
 	t_screen_point	**screen_points;
@@ -102,7 +102,11 @@ typedef struct s_globals
 	t_vector2int	selected_point;
 }	t_globals;
 
-// to remove
+void	end_loop(t_globals *globals);
+
+// @todo remove
 void print_vector2int(char const *name, t_vector2int v2i);
+// @todo remove
+void *xmalloc(size_t size);
 
 #endif

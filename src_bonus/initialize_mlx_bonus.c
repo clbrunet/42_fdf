@@ -12,6 +12,7 @@
 
 #include "initialize_mlx_bonus.h"
 #include "hooks_bonus.h"
+#include "ft_bonus.h"
 
 static int	initialize_mlx_win(t_mlx *mlx)
 {

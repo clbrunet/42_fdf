@@ -62,35 +62,30 @@ size_t	ft_str_word_count(char const *s)
 	return (count);
 }
 
-char	*ft_strchr(char const *s, int c)
+char	*ft_strcat(char *dest, char const *src)
 {
-	char	c_c;
+	char	*dest_start;
 
-	c_c = (char)c;
-	while (*s && *s != c_c)
+	dest_start = dest;
+	while (*dest)
 	{
-		s++;
+		dest++;
 	}
-	if (*s == c_c)
-	{
-		return ((char *)s);
-	}
-	return ((char *) NULL);
+	ft_strcpy(dest, src);
+	return (dest_start);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dest, char const *src)
 {
-	char const	*dst_bp;
+	char	*dest_start;
 
-	if (!dst || !src)
-		return (0);
-	dst_bp = dst;
+	dest_start = dest;
 	while (*src)
 	{
-		*dst = *src;
-		dst++;
+		*dest = *src;
+		dest++;
 		src++;
 	}
-	*dst = 0;
-	return ((char *)dst_bp);
+	*dest = '\0';
+	return (dest_start);
 }

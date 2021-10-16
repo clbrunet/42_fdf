@@ -12,6 +12,7 @@
 
 #include "get_file_lines_bonus.h"
 #include "get_next_line_bonus.h"
+#include "ft_bonus.h"
 
 static int	strsadd_back(char ***strs_ptr, unsigned int len, char *new)
 {
@@ -44,7 +45,7 @@ static void	*open_error(char const *path)
 	return (NULL);
 }
 
-static void	*gnl_error(int ret, char **lines)
+static void	*gnl_error(int ret, char **lines, int fd)
 {
 	free_strs(lines);
 	if (ret == -1)
@@ -55,13 +56,15 @@ static void	*gnl_error(int ret, char **lines)
 	{
 		write_str(2, "Malloc failed\n");
 	}
+	close(fd);
 	return (NULL);
 }
 
-static void	*strsadd_back_error(char *line, char **lines)
+static void	*strsadd_back_error(char *line, char **lines, int fd)
 {
 	free(line);
 	free_strs(lines);
+	close(fd);
 	write_str(2, "Malloc failed\n");
 	return (NULL);
 }
@@ -83,12 +86,13 @@ char	**get_file_lines(char const *path)
 	while (ret > 0)
 	{
 		if (strsadd_back(&lines, i, line) == EXIT_FAILURE)
-			return (strsadd_back_error(line, lines));
+			return (strsadd_back_error(line, lines, fd));
 		i++;
 		ret = get_next_line(fd, &line);
 	}
 	if (ret < 0)
-		return (gnl_error(ret, lines));
+		return (gnl_error(ret, lines, fd));
 	free(line);
+	close(fd);
 	return (lines);
 }

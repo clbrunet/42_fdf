@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main_bonus.h"
 #include "hooks_bonus.h"
 #include "map_bonus.h"
 #include "tile_bonus.h"
@@ -73,14 +74,14 @@ static int	key_press_hook_rotate_map(int keycode, t_globals *globals)
 	{
 		if (left_rotate_map(globals) == EXIT_FAILURE)
 		{
-			mlx_loop_end(globals->mlx.ptr);
+			end_loop(globals);
 		}
 	}
 	else if (XK_Right == keycode)
 	{
 		if (right_rotate_map(globals) == EXIT_FAILURE)
 		{
-			mlx_loop_end(globals->mlx.ptr);
+			end_loop(globals);
 		}
 	}
 	else
@@ -93,7 +94,9 @@ static int	key_press_hook_rotate_map(int keycode, t_globals *globals)
 int	key_press_hook(int keycode, t_globals *globals)
 {
 	if (XK_Escape == keycode)
-		mlx_loop_end(globals->mlx.ptr);
+	{
+		end_loop(globals);
+	}
 	else if (XK_Up == keycode)
 	{
 		globals->map.points[globals->selected_point.y]

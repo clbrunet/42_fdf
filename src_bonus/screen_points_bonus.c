@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "screen_points_bonus.h"
+#include "ft_bonus.h"
 
 static int	allocate_screen_points_rows(
 		t_screen_point **screen_points, t_vector2int dimension)
@@ -86,21 +87,27 @@ int	set_screen_points(t_globals *globals)
 	{
 		write_str(2, "Malloc failed\n");
 		free(globals->screen_points);
+		globals->screen_points = NULL;
 		return (EXIT_FAILURE);
 	}
 	set_screen_points_values(globals, globals->screen_points);
 	return (EXIT_SUCCESS);
 }
 
-void	free_screen_points(t_vector2int dimension, t_screen_point **arr)
+void	free_screen_points(t_globals *globals)
 {
 	int	i;
 
-	i = 0;
-	while (i < dimension.y)
+	if (NULL == globals->screen_points)
 	{
-		free(arr[i]);
+		return ;
+	}
+	i = 0;
+	while (i < globals->map.dimension.y)
+	{
+		free(globals->screen_points[i]);
 		i++;
 	}
-	free(arr);
+	free(globals->screen_points);
+	globals->screen_points = NULL;
 }
