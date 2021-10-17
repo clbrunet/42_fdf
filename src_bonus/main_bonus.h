@@ -77,6 +77,12 @@ typedef struct s_point
 	t_color	color;
 }	t_point;
 
+typedef struct s_point_strings
+{
+	char	*height;
+	char	*color;
+}	t_point_strings;
+
 typedef struct s_screen_point
 {
 	t_vector2int	position;

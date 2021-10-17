@@ -12,11 +12,27 @@
 
 #include "ft_bonus.h"
 
-static unsigned int	ft_nlen(long n, int len)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	if (n > 9)
+	char			*s_s;
+	unsigned char	uc_c;
+
+	s_s = (char *)s;
+	uc_c = (unsigned char)c;
+	while (n--)
 	{
-		return (ft_nlen(n / 10, len + 1));
+		*s_s = uc_c;
+		s_s++;
+	}
+	return (s);
+}
+
+unsigned int	get_number_length_base(unsigned long n, int len,
+		unsigned int base)
+{
+	if (n > base - 1)
+	{
+		return (get_number_length_base(n / base, len + 1, base));
 	}
 	return (len);
 }
@@ -44,7 +60,7 @@ char	*ft_itoa(int n)
 		l_n *= -1;
 		is_negative = 1;
 	}
-	len = ft_nlen(l_n, is_negative + 1);
+	len = get_number_length_base(l_n, is_negative + 1, 10);
 	a = malloc((len + 1) * sizeof(char));
 	if (NULL == a)
 		return ((char *) NULL);

@@ -34,15 +34,15 @@ void print_vector2int(char const *name, t_vector2int v2i)
 }
 
 // @todo remove
-static int fail_at = 0;
+static int g_fail_at = 0;
 
 // @todo remove
 void *xmalloc(size_t size)
 {
 	static int	s = 0;
+
 	s++;
-	
-	if (s == fail_at)
+	if (s == g_fail_at)
 	{
 		return (NULL);
 	}

@@ -17,6 +17,7 @@
 #include "screen_points_bonus.h"
 #include "translate_bonus.h"
 #include "zoom_bonus.h"
+#include "save_bonus.h"
 
 static int	key_press_hook_zoom(int keycode, t_globals *globals)
 {
@@ -91,13 +92,9 @@ static int	key_press_hook_rotate_map(int keycode, t_globals *globals)
 	return (EXIT_SUCCESS);
 }
 
-int	key_press_hook(int keycode, t_globals *globals)
+static int	key_press_hook_update_height(int keycode, t_globals *globals)
 {
-	if (XK_Escape == keycode)
-	{
-		end_loop(globals);
-	}
-	else if (XK_Up == keycode)
+	if (XK_Up == keycode)
 	{
 		globals->map.points[globals->selected_point.y]
 		[globals->selected_point.x].height++;
@@ -111,16 +108,32 @@ int	key_press_hook(int keycode, t_globals *globals)
 		set_screen_points_y_position(globals, globals->screen_points,
 			globals->selected_point.y, globals->selected_point.x);
 	}
-	else if (EXIT_SUCCESS == key_press_hook_rotate_map(keycode, globals)
-		|| EXIT_SUCCESS == key_press_hook_translate(keycode, globals)
-		|| EXIT_SUCCESS == key_press_hook_zoom(keycode, globals))
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+	else
+	{
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
-int	key_release_hook(int keycode, t_globals *globals)
+int	key_press_hook(int keycode, t_globals *globals)
 {
-	(void)keycode;
-	(void)globals;
+	if (XK_Escape == keycode)
+	{
+		end_loop(globals);
+	}
+	else if (XK_s == keycode)
+	{
+		save(globals);
+	}
+	else if (EXIT_SUCCESS == key_press_hook_rotate_map(keycode, globals)
+		|| EXIT_SUCCESS == key_press_hook_translate(keycode, globals)
+		|| EXIT_SUCCESS == key_press_hook_zoom(keycode, globals)
+		|| EXIT_SUCCESS == key_press_hook_update_height(keycode, globals))
+	{
+	}
+	else
+	{
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

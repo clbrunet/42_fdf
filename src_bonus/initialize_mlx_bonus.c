@@ -49,8 +49,6 @@ static int	initialize_mlx_hooks(t_globals *globals)
 	mlx_mouse_hook(globals->mlx.win, &mouse_hook, globals);
 	mlx_hook(globals->mlx.win, KeyPress, KeyPressMask, &key_press_hook,
 		globals);
-	mlx_hook(globals->mlx.win, KeyRelease, KeyReleaseMask, &key_release_hook,
-		globals);
 	mlx_hook(globals->mlx.win, ClientMessage, StructureNotifyMask,
 		&close_window_hook, globals);
 	return (EXIT_SUCCESS);

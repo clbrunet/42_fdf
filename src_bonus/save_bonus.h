@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_bonus.h                                      :+:      :+:    :+:   */
+/*   save_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 12:08:37 by clbrunet          #+#    #+#             */
-/*   Updated: 2021/10/12 16:41:18 by clbrunet         ###   ########.fr       */
+/*   Created: 2021/10/17 07:45:31 by clbrunet          #+#    #+#             */
+/*   Updated: 2021/10/17 07:45:31 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOKS_BONUS_H
-# define HOOKS_BONUS_H
+#ifndef SAVE_BONUS_H
+# define SAVE_BONUS_H
 
-# include <X11/X.h>
-# include <math.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
 # include "main_bonus.h"
-# include "mlx_img_put_bonus.h"
 
-int	loop_hook(t_globals *globals);
-int	close_window_hook(t_globals *globals);
-int	key_press_hook(int keycode, t_globals *globals);
-int	mouse_hook(int button, int x, int y, t_globals *globals);
+int	save(t_globals *globals);
 
 #endif
