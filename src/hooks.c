@@ -14,7 +14,8 @@
 
 int	loop_hook(t_globals *globals)
 {
-	(void)globals;
+	mlx_put_image_to_window(globals->mlx.ptr, globals->mlx.win,
+		globals->mlx.img.ptr, 0, 0);
 	return (EXIT_SUCCESS);
 }
 

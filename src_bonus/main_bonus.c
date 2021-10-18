@@ -18,40 +18,6 @@
 #include "screen_points_bonus.h"
 #include "ft_bonus.h"
 
-// @todo remove
-void print_vector2int(char const *name, t_vector2int v2i)
-{
-	if (name)
-	{
-		printf("%s :\n", name);
-	}
-	else
-	{
-		printf("vector2int :\n");
-	}
-	printf("\tx : %d\n", v2i.x);
-	printf("\ty : %d\n", v2i.y);
-}
-
-// @todo remove
-static int g_fail_at = 0;
-
-// @todo remove
-void *xmalloc(size_t size)
-{
-	static int	s = 0;
-
-	s++;
-	if (s == g_fail_at)
-	{
-		return (NULL);
-	}
-	else
-	{
-		return (malloc(size));
-	}
-}
-
 void	end_loop(t_globals *globals)
 {
 	globals->is_end_loop = 1;

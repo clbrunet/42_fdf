@@ -4,7 +4,7 @@ NAME_BONUS = fdf_bonus
 LIBMLX = minilibx-linux/libmlx.a
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux/ -g3
+CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux/
 LDFLAGS = $(LIBMLX) -lXext -lX11 -lm
 
 SRCS = src/ft.c \
@@ -44,6 +44,7 @@ SRCS_BONUS = src_bonus/ft_bonus.c \
 						 src_bonus/translate_bonus.c \
 						 src_bonus/zoom_bonus.c \
 						 src_bonus/save_bonus.c \
+						 src_bonus/save2_bonus.c \
 						 src_bonus/hooks_bonus.c \
 						 src_bonus/hooks2_bonus.c \
 						 src_bonus/hooks3_bonus.c \

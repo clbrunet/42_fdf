@@ -14,28 +14,25 @@
 #include "get_file_lines.h"
 #include "get_next_line.h"
 
-static int	pop_number(char *line)
+static int	pop_number(char *line, int *i)
 {
-	char	*start;
 	long	n;
 	int		sign;
 
-	start = line;
 	sign = 1;
-	while (*line == ' ')
-		line++;
-	if (*line == '-')
+	while (line[*i] == ' ')
+		(*i)++;
+	if (line[*i] == '-')
 	{
 		sign = -1;
-		line++;
+		(*i)++;
 	}
 	n = 0;
-	while ('0' <= *line && *line <= '9')
+	while ('0' <= line[*i] && line[*i] <= '9')
 	{
-		n = n * 10 + *line - '0';
-		line++;
+		n = n * 10 + line[*i] - '0';
+		(*i)++;
 	}
-	ft_strcpy(start, line);
 	return (n * sign);
 }
 
@@ -43,14 +40,16 @@ static void	set_map_points(t_map *map, char **lines)
 {
 	int	i;
 	int	j;
+	int	line_iterator;
 
 	i = 0;
 	while (i < map->dimension.y)
 	{
 		j = 0;
+		line_iterator = 0;
 		while (j < map->dimension.x)
 		{
-			map->points[i][j].height = pop_number(lines[i]);
+			map->points[i][j].height = pop_number(lines[i], &line_iterator);
 			map->points[i][j].color.full = 0x00FFFFFF;
 			j++;
 		}

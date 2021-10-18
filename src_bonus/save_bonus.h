@@ -19,6 +19,7 @@
 
 # include "main_bonus.h"
 
+int	write_save_file(t_point_strings **points_strings, t_globals *globals);
 int	save(t_globals *globals);
 
 #endif

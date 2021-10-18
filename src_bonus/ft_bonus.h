@@ -30,7 +30,7 @@ int				ft_abs(int j);
 int				ft_max(int a, int b);
 void			*ft_memset(void *s, int c, size_t n);
 unsigned int	get_number_length_base(unsigned long n, int len,
-		unsigned int base);
+					unsigned int base);
 char			*ft_itoa(int n);
 char			*ft_hextoa(unsigned int n);
 

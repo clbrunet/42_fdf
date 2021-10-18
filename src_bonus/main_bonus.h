@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <X11/keysym.h>
 # include "mlx.h"
 
@@ -109,10 +108,5 @@ typedef struct s_globals
 }	t_globals;
 
 void	end_loop(t_globals *globals);
-
-// @todo remove
-void print_vector2int(char const *name, t_vector2int v2i);
-// @todo remove
-void *xmalloc(size_t size);
 
 #endif
