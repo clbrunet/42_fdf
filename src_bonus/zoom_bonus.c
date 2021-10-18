@@ -15,7 +15,6 @@
 #include "tile_bonus.h"
 #include "screen_points_bonus.h"
 
-#include <stdio.h>
 void	zoom_reset(t_globals *globals)
 {
 	free_screen_points(globals);
