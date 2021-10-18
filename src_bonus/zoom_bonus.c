@@ -15,10 +15,17 @@
 #include "tile_bonus.h"
 #include "screen_points_bonus.h"
 
+#include <stdio.h>
 void	zoom_reset(t_globals *globals)
 {
 	free_screen_points(globals);
 	set_tile_dimension(globals);
+	globals->origin_screen_position.x = (int)(WIDTH / 2)
+		+ 1 * (globals->origin_screen_position.x - (int)(WIDTH / 2))
+		/ globals->zoom;
+	globals->origin_screen_position.y = (int)(HEIGHT / 2)
+		+ 1 * (globals->origin_screen_position.y - (int)(HEIGHT / 2))
+		/ globals->zoom;
 	globals->zoom = 1;
 	if (EXIT_FAILURE == set_screen_points(globals))
 	{
